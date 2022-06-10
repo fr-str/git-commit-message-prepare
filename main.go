@@ -12,6 +12,9 @@ func main() {
 	regex := regexp.MustCompile(`^.*func (\([a-zA-Z0-9_ *]+\) )?([a-zA-Z0-9_]+)[\[\(]`)
 	f, _ := os.ReadFile(os.Args[1])
 	usrMsg := strings.Trim(string(f), "\n")
+	if strings.Contains(usrMsg, "Merge branch") {
+		return
+	}
 
 	cmd := "git --no-pager diff --staged"
 	out, err := exec.Command("sh", "-c", cmd).Output()
